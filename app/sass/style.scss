@@ -1,0 +1,32 @@
+main {
+	border: solid 5px white;
+	background-color: yellow;
+	font: bold 1em serif;
+	text-align: justify;
+
+	h1 {
+		text-align: center;
+		color: purple;
+	}
+
+	/* EXTEND/INHERITANCE */
+	%main-divs-padding {
+		padding: 1em;
+	}
+
+	/* NESTING */
+	#first {
+		@extend %main-divs-padding;
+		background-color: pink;
+		}
+
+	#second {
+		@extend %main-divs-padding;
+		background-color: lightgreen;
+		}
+
+	#third {
+		@extend %main-divs-padding;
+		background-color: lightblue;
+	}
+}
