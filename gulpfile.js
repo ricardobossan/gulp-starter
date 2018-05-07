@@ -8,6 +8,8 @@ var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-clean-css')
 var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer')
+// allow to fix scss file without interrupting the watch task
+var plumber = require('gulp-plumber')
 
 // MINIFY JS FILES
 gulp.task('scripts', function() {
@@ -20,6 +22,7 @@ gulp.task('scripts', function() {
 // USES SASS
 gulp.task('styles', function() {
 	gulp.src('app/sass/**/*.scss')
+		.pipe(plumber())
 		.pipe(sass().on('error', sass.logError))
 		.pipe((minifyCSS({compatibility: 'ie8'})))
 		.pipe(gulp.dest('app/css'))
