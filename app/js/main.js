@@ -1,5 +1,5 @@
 console.log('Lorem ipsum dolor sit amet.')
 console.log('Lorem ipsum dolor sit amet.')
 console.log('Lorem ipsum dolor sit amet.')
-console.log('Lorem ipsum dolor sit amet.')
-document.getElementById('first-main').innerHTML = 'Front-End Web Dev';
+console.log('did it work? Again?')
+document.getElementById('first').innerHTML = 'Front-End Web Dev';
