@@ -8,6 +8,7 @@ var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-clean-css')
 var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer')
+var del = require('del')
 var browserSync = require('browser-sync')
 var bSCreate = require('browser-sync').create();
 
@@ -19,7 +20,7 @@ gulp.task('scripts', function() {
 	gulp.src(['app/**/*.js', '!app/**/*.min.js'])
 		.pipe(rename({suffix: '.min'}))
 		.pipe(uglify())
-		.pipe(gulp.dest('app/js'));
+		.pipe(gulp.dest('app/'));
 		browserSync.reload();
 
 })
@@ -29,7 +30,7 @@ gulp.task('styles', function() {
 	gulp.src('app/sass/**/*.scss')
 		.pipe(plumber())
 		.pipe(sass().on('error', sass.logError))
-		.pipe((minifyCSS({compatibility: 'ie8'})))
+		//.pipe((minifyCSS({compatibility: 'ie8'})))
 		.pipe(gulp.dest('app/css'))
 		.pipe(browserSync.stream())
 });
@@ -40,11 +41,50 @@ gulp.task('html', function() {
 		.pipe(bSCreate.reload({stream:true}))
 })
 
+
+/*BUILD TASKS*/
+// clear out all files and folders from build folder
+// the cb parameter/callback function is called to
+// make sure a task has finished, before another starts
+gulp.task('build:cleanfolder', function(cb) {
+	del([
+		'build/**'
+		], cb());
+
+});
+
+// Task to create build directory for all files
+gulp.task('build:copy', ['build:cleanfolder'], function() {
+	return gulp.src('app/**')
+	.pipe(gulp.dest('build/'));
+});
+
+// task to remove unwanted bulid files
+// list all files and directories here that you don't want to include
+gulp.task('build:remove', ['build:copy'], function(cb) {
+	del([
+		'build/sass',
+		'build/js/!(*.min.js)'
+		], cb());
+
+});
+
+gulp.task('build', ['build:cleanfolder', 'build:copy', 'build:remove']);
+
 // CONFIGURE BROWSER-SYNC
-gulp.task('browser-sync+server', function () {
+gulp.task('browser-sync-server', function () {
 	browserSync.init({
 		server:{
 			baseDir: "./app/"
+		}
+	});
+});
+
+// task to run build for testing the final app
+gulp.task('build:serve', function () {
+	browserSync.init({
+		server:{
+			baseDir: "./build/"
 		}
 	});
 });
@@ -57,4 +97,6 @@ gulp.task('watch', function() {
 });
 
 // DEFAULT TASK
-gulp.task('default', ['scripts', 'styles', 'html', 'browser-sync+server', 'watch']);
+gulp.task('default', ['scripts', 'styles', 'html', 'browser-sync-server', 'watch']);
+
+// credit for code: Joel Longie, at https://www.youtube.com/watch?v=jgcfEhiCkG4

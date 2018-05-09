@@ -1,1 +1,29 @@
-main{border:solid 5px #fff;background-color:orange;font:bold 1em serif;text-align:justify}main h1{text-align:center;color:purple}main #first,main #second,main #third{padding:1em}main #first{background-color:pink}main #second{background-color:#90ee90}main #third{background-color:#add8e6}
+body {
+  margin: 0 auto;
+  max-width: 1024px;
+  background-color: gray; }
+
+main {
+  margin: 0 auto;
+  max-width: 928px;
+  border: solid 5px white;
+  background-color: orange;
+  font: bold 1em serif;
+  text-align: justify;
+  /* EXTEND/INHERITANCE */
+  /* NESTING */ }
+  main h1 {
+    text-align: center;
+    color: purple; }
+  main #first, main #second, main #third {
+    padding: 1em; }
+  main #first {
+    background-color: lightgreen; }
+  main #second {
+    background-color: lightblue; }
+  main #third {
+    background-color: pink; }
+
+@media only screen and (min-device-width: 1024px) {
+  #title {
+    font-size: 3em; } }

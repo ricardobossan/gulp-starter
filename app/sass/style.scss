@@ -1,4 +1,12 @@
+body {
+	margin: 0 auto;
+	max-width: 1024px;
+	background-color: gray;
+}
+
 main {
+	margin: 0 auto;
+	max-width: 928px;
 	border: solid 5px white;
 	background-color: orange;
 	font: bold 1em serif;
@@ -17,16 +25,22 @@ main {
 	/* NESTING */
 	#first {
 		@extend %main-divs-padding;
-		background-color: pink;
+		background-color: lightgreen;
 		}
 
 	#second {
 		@extend %main-divs-padding;
-		background-color: lightgreen;
+		background-color: lightblue;
 		}
 
 	#third {
 		@extend %main-divs-padding;
-		background-color: lightblue;
+		background-color: pink;
+	}
+}
+
+@media only screen and (min-device-width:1024px) {
+	#title {
+		font-size: (3em);
 	}
 }
